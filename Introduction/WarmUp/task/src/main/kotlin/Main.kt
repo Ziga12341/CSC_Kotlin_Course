@@ -1,11 +1,25 @@
+import kotlin.math.min
+
 fun main() {
 //    Why type mismatch????
-//    println(charInWord("A", "aass "))
+//    println(charInWord('s', "aass "))
+    // "AAA": String
+    // "AA": String
+    // "A": String
+    // "": String
 
+    //
+
+//    guess = "ACEB", secret = "BCDF", result = 1;
+//    guess = "ABCD", secret = "DCBA", result = 4;
+//    guess = "AAAA", secret = "ABBB", result = 0;
+//    guess = "BBBB", secret = "BBDH", result = 0.
+
+//    println(countPartialMatches("BCDF", "ACEB"))
 //    println(countPartialMatches("ABCD", "ABBA"))
 //    println(countPartialMatches("AAAA", "AAAA"))
 //    println(countPartialMatches("BCDF", "ACEB"))
-    println(countPartialMatches("BCDF", "ACEB"))
+//    println(countPartialMatches("BCDF", "ACEB"))
     println(getGameRules(4, 3, "ACEB"))
     playGame(generateSecret(), 4, 3)
 }
@@ -23,22 +37,47 @@ fun generateSecret(): String {
 }
 
 fun countPartialMatches(secret: String, guess: String): Int {
+//    val countLettersOfSecretInGuess = 0
+//    val countLettersOfGuessInSecret = 0
+//
+//    secret.filter { letter -> letter in guess }
+//
+//    val count1 = minOf(countLettersOfSecretInGuess, countLettersOfGuessInSecret)
+//    return count1 - countExactMatches(secret, guess)
+    return getPartialMatches(secret, guess)
+}
+
+fun getPartialMatches(secret: String, guess: String): Int {
     var counter = 0
-    var removedLetters = 0
-    var changedSecrets = secret
+    val removeLetterIndexes = mutableListOf<Int>()
+    // var changedSecrets = secret
+    val changedSecretsList = secret.toMutableList()
+    val changedGuessList = guess.toMutableList()
+
     for ((index, letter) in guess.withIndex()) {
         if (secret[index] == letter) {
-            changedSecrets =
-                changedSecrets.removeRange(index - removedLetters, index + 1 - removedLetters)
-            removedLetters++
-            break
-        }
-        if (charInWord(letter, changedSecrets)) {
-            counter++
-        } else {
-            removedLetters++
+            removeLetterIndexes += index
         }
     }
+    val sortedIndices = removeLetterIndexes.sortedDescending()
+
+    for (index in sortedIndices) {
+        if (index in 0 until changedSecretsList.size) {
+            changedSecretsList.removeAt(index)
+            changedGuessList.removeAt(index)
+        }
+    }
+    val changedSecretsString = changedSecretsList.toString()
+
+//    println(changedSecretsList)
+//    println(changedGuessList)
+
+    for (letter in changedSecretsList) {
+        if (charInWord(letter, changedGuessList.joinToString(""))) {
+            counter++
+        }
+    }
+
     return counter
 }
 
@@ -47,7 +86,6 @@ fun countPartialMatches(secret: String, guess: String): Int {
 fun charInWord(letter: Char, word: String): Boolean {
     return letter in word
 }
-
 
 fun countExactMatches(secret: String, guess: String): Int {
     var matches = 0
