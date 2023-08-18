@@ -2,7 +2,10 @@ fun main() {
 //    Why type mismatch????
 //    println(charInWord("A", "aass "))
 
-    println(countPartialMatches("BDCF", "BCFD"))
+//    println(countPartialMatches("ABCD", "ABBA"))
+//    println(countPartialMatches("AAAA", "AAAA"))
+//    println(countPartialMatches("BCDF", "ACEB"))
+    println(countPartialMatches("BCDF", "ACEB"))
     println(getGameRules(4, 3, "ACEB"))
     playGame(generateSecret(), 4, 3)
 }
@@ -21,9 +24,19 @@ fun generateSecret(): String {
 
 fun countPartialMatches(secret: String, guess: String): Int {
     var counter = 0
+    var removedLetters = 0
+    var changedSecrets = secret
     for ((index, letter) in guess.withIndex()) {
-        if (charInWord(letter, secret) && secret[index] != letter) {
+        if (secret[index] == letter) {
+            changedSecrets =
+                changedSecrets.removeRange(index - removedLetters, index + 1 - removedLetters)
+            removedLetters++
+            break
+        }
+        if (charInWord(letter, changedSecrets)) {
             counter++
+        } else {
+            removedLetters++
         }
     }
     return counter
