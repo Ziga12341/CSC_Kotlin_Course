@@ -1,0 +1,14 @@
+type: framework
+content:
+- Introduction
+- TypesOfVariables
+- CustomFunctions
+- Loops
+- If
+- Collections
+- CollectionsPartTwo
+- FinishBaseGame
+- Random
+- FinishGame
+is_template_based: false
+current_task: 6
