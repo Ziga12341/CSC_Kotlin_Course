@@ -2,7 +2,7 @@ fun main() {
 //    Why type mismatch????
 //    println(charInWord("A", "aass "))
 
-    println(countPartialMatches("abrakadabra", "abrad"))
+    println(countPartialMatches("BDCF", "BCFD"))
     println(getGameRules(4, 3, "ACEB"))
     playGame(generateSecret(), 4, 3)
 }
@@ -20,7 +20,7 @@ fun generateSecret(): String {
 }
 
 fun countPartialMatches(secret: String, guess: String): Int {
-    var counter:Int = 0
+    var counter = 0
     for ((index, letter) in guess.withIndex()) {
         if (charInWord(letter, secret) && secret[index] != letter) {
             counter++
@@ -37,7 +37,7 @@ fun charInWord(letter: Char, word: String): Boolean {
 
 
 fun countExactMatches(secret: String, guess: String): Int {
-    var matches: Int = 0
+    var matches = 0
     for ((index, symbol) in guess.withIndex()) {
         if (secret[index] == symbol) {
             matches++
@@ -47,8 +47,8 @@ fun countExactMatches(secret: String, guess: String): Int {
 }
 
 fun playGame(secret: String, wordLength: Int, maxAttemptsCount: Int) {
-    var attemptsCounter: Int = 0
-    var guess: String = ""
+    var attemptsCounter = 0
+    var guess = ""
     do {
         println("Please input your guess. It should be of length $wordLength.")
         guess = safeReadLine()
