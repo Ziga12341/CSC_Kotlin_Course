@@ -11,22 +11,50 @@ Two people play this game: one chooses a word (a sequence of letters), the other
 For example, with $secretExample as the hidden word, the BCDF guess will give 1 full match (C) and 1 partial match (B)."""
 }
 
+fun generateSecret(): String {
+    return "ABCD"
+}
+
 fun playGame(secret: String, wordLength: Int, maxAttemptsCount: Int) {
     var attemptsCounter = 0
-    var guess = ""
+    var guess:String = ""
     do {
         println("Please input your guess. It should be of length $wordLength.")
         guess = safeReadLine()
         attemptsCounter++
-        isComplete(secret, guess)
-    } while (maxAttemptsCount < attemptsCounter)
+        if (isWin(isComplete(secret, guess), attemptsCounter, attemptsCounter)) {
+            printRoundResults(secret, guess)
+            println("Congratulations! You guessed it!")
+            break
+        }
+        printRoundResults(secret, guess)
+        if (isLoss(isComplete(secret, guess), attemptsCounter, maxAttemptsCount)) {
+            println("Sorry, you lost! :( My word is $secret")
+        }
+    } while (attemptsCounter < maxAttemptsCount + 1)
+}
+
+fun isWin(complete: Boolean, attempts: Int, maxAttemptsCount: Int): Boolean {
+    return complete && (attempts <= maxAttemptsCount + 1)
+}
+
+fun isLoss(complete: Boolean, attempts: Int, maxAttemptsCount: Int): Boolean {
+    return !complete && (maxAttemptsCount + 1 <= attempts)
+}
+
+fun printRoundResults(secret: String, guess: String) {
+    println(
+        "Your guess has ${
+            countExactMatches(
+                secret,
+                guess
+            )
+        } full matches and ${countPartialMatches(secret, guess)} partial matches."
+    )
 }
 
 fun isComplete(secret: String, guess: String): Boolean {
-    return secret === guess
-}
-fun generateSecret(): String {
-    return "ABCD"
+    return secret == guess
 }
 
 fun countPartialMatches(secret: String, guess: String): Int {
@@ -57,6 +85,7 @@ fun countPartialMatches(secret: String, guess: String): Int {
 
     return counter
 }
+
 //why type Char do not work for letter "a" or "A"... i need to put type String here
 //This function is case sensitive!!!
 fun charInWord(letter: Char, word: String): Boolean {
