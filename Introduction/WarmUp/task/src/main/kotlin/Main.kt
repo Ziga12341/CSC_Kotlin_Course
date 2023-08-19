@@ -1,25 +1,4 @@
-import kotlin.math.min
-
 fun main() {
-//    Why type mismatch????
-//    println(charInWord('s', "aass "))
-    // "AAA": String
-    // "AA": String
-    // "A": String
-    // "": String
-
-    //
-
-//    guess = "ACEB", secret = "BCDF", result = 1;
-//    guess = "ABCD", secret = "DCBA", result = 4;
-//    guess = "AAAA", secret = "ABBB", result = 0;
-//    guess = "BBBB", secret = "BBDH", result = 0.
-
-//    println(countPartialMatches("BCDF", "ACEB"))
-//    println(countPartialMatches("ABCD", "ABBA"))
-//    println(countPartialMatches("AAAA", "AAAA"))
-//    println(countPartialMatches("BCDF", "ACEB"))
-//    println(countPartialMatches("BCDF", "ACEB"))
     println(getGameRules(4, 3, "ACEB"))
     playGame(generateSecret(), 4, 3)
 }
@@ -32,25 +11,27 @@ Two people play this game: one chooses a word (a sequence of letters), the other
 For example, with $secretExample as the hidden word, the BCDF guess will give 1 full match (C) and 1 partial match (B)."""
 }
 
+fun playGame(secret: String, wordLength: Int, maxAttemptsCount: Int) {
+    var attemptsCounter = 0
+    var guess = ""
+    do {
+        println("Please input your guess. It should be of length $wordLength.")
+        guess = safeReadLine()
+        attemptsCounter++
+        isComplete(secret, guess)
+    } while (maxAttemptsCount < attemptsCounter)
+}
+
+fun isComplete(secret: String, guess: String): Boolean {
+    return secret === guess
+}
 fun generateSecret(): String {
     return "ABCD"
 }
 
 fun countPartialMatches(secret: String, guess: String): Int {
-//    val countLettersOfSecretInGuess = 0
-//    val countLettersOfGuessInSecret = 0
-//
-//    secret.filter { letter -> letter in guess }
-//
-//    val count1 = minOf(countLettersOfSecretInGuess, countLettersOfGuessInSecret)
-//    return count1 - countExactMatches(secret, guess)
-    return getPartialMatches(secret, guess)
-}
-
-fun getPartialMatches(secret: String, guess: String): Int {
     var counter = 0
     val removeLetterIndexes = mutableListOf<Int>()
-    // var changedSecrets = secret
     val changedSecretsList = secret.toMutableList()
     val changedGuessList = guess.toMutableList()
 
@@ -67,10 +48,6 @@ fun getPartialMatches(secret: String, guess: String): Int {
             changedGuessList.removeAt(index)
         }
     }
-    val changedSecretsString = changedSecretsList.toString()
-
-//    println(changedSecretsList)
-//    println(changedGuessList)
 
     for (letter in changedSecretsList) {
         if (charInWord(letter, changedGuessList.joinToString(""))) {
@@ -80,7 +57,6 @@ fun getPartialMatches(secret: String, guess: String): Int {
 
     return counter
 }
-
 //why type Char do not work for letter "a" or "A"... i need to put type String here
 //This function is case sensitive!!!
 fun charInWord(letter: Char, word: String): Boolean {
@@ -95,19 +71,4 @@ fun countExactMatches(secret: String, guess: String): Int {
         }
     }
     return matches
-}
-
-fun playGame(secret: String, wordLength: Int, maxAttemptsCount: Int) {
-    var attemptsCounter = 0
-    var guess = ""
-    do {
-        println("Please input your guess. It should be of length $wordLength.")
-        guess = safeReadLine()
-        attemptsCounter++
-        isComplete(secret, guess)
-    } while (maxAttemptsCount < attemptsCounter)
-}
-
-fun isComplete(secret: String, guess: String): Boolean {
-    return secret === guess
 }
