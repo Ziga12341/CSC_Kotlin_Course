@@ -16,9 +16,9 @@ fun generateSecret(wordLength:Int, alphabet: String): String {
 
 fun playGame(secret: String, wordLength: Int, maxAttemptsCount: Int, alphabet: String) {
     var attemptsCounter = 0
-    var guess:String = ""
+    var guess = ""
     do {
-        guess = safeUserInput(wordLength, guess).toString()
+        guess = safeUserInput(wordLength, guess)
         if (!isCorrectInput(guess, wordLength, alphabet)){
             break
         }
