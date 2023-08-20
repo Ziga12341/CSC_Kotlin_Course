@@ -18,11 +18,8 @@ files:
   encrypted_text: SmzGmvoR6ExUKqYQa836j7jdRyTs71AVtqydNZTRxGysC5D30EPxytUPfWtAI5Vcb2WP30NicVZDUCGhXBt91W0rmlBn03sUwCuHqWTu6WfnB1YW/VWRFkp+deW7BWiep2VpzUwMlM7qBgyMv/y0WSF1Lj0cscbt8wj0+Ek7hy0DoaCKSZNxDbZI42AAoFFCCZuJ1NgVrcr9O1IiVIRcCX1+IYiiiQLzaxmVH94CH9loFC/M9FZxiyEz3OYiVqRbaCixHGW+hOJddRwOx8e1+yBOQKK7OIrWX0JSRScVA+PAAf2iTSYozDWe3vOqIYgjl33u29m2Rt7KK+BbTRZrFdFHDQCMQHbIuymeskMqxqnLyu6o+sLwS/rvoT4vQpFTQMyVQ8TELjm9K2p68wBmoPqGqQhZGGvxhGbJV0dQ1BrrV3Hz2MT0Q8BnlCc1kXgxN0v8eEfTyYayO7yy2tenQO8q9r4YrTKGtJLusXihN5oR4T9PaqwBFS2eqP2TUsYpjzm2Ca/DBirQs7LlS+Z5M06t/9LYB76ZlNC8g5/HueHhk9GxP9f2hwLn97T0Uug40YI0sq7FL2bKXFo47jyeKKBoDAhT9GwB2P4z76sXxzafF4KUD8tB06mV1eTYY9/a9QbANjuDobri7dTggEJC8goXQDefFnjhp3wruLjUcFwJr0T7FW8UJDYpsMP8uiJCbdrogyLMgwXCqiPpsNxs7c4/gcNd2YXkcPr4pViKD3u3cigE17u+S12JS897D5/H+C4GFH68E2yv6dxR9p4IyUjcdBVEWgyIf7/oW0M5CpDtsC+WJNB/eOvaZ73xl5Vu1tc9jcKoXORYREYU15fUSq7ZCdjYa/DTk3jM785xLaqYQChzdlTLAHD43EJHE7qbwz4Pft6a2vjYAjZ9kUQk1Ei60FrWTTvtxU1HIncJOZQXLfPk6XEu8nGKIc59C/0cNRa9cYmroaWyF3YuuK+c+thUoVjZQ1svYQWxqfPaWIgrvPjq0pJbT9WlPdXXAbcbEG7eWkhZNlZGdsvCwvy9fC5Zqk19/o/mRjH32VUHmXguv3jsZ6HjoWtXEPMjmh0j
   learner_created: false
 feedback_link: https://docs.google.com/forms/d/e/1FAIpQLScylICclQIi9_YDjO7iuyRITDLn0Qgzw_aLxKxiishKAbL0qg/viewform?usp=pp_url&entry.2103429047=Introduction/Warm+up/Finish+the+game
-status: Failed
+status: Solved
 feedback:
-  message: "The function isCorrectInput with arguments: input=ABCD, wordLength=4,\
-    \ alphabet=ABCDEFG should return  ==&gt;"
-  time: "Sun, 20 Aug 2023 12:11:46 UTC"
-  expected: "true"
-  actual: "false"
+  message: Congratulations!
+  time: "Sun, 20 Aug 2023 13:11:19 UTC"
 record: -1
