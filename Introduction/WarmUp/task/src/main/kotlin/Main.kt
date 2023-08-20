@@ -1,6 +1,6 @@
 fun main() {
     println(getGameRules(4, 3, "ACEB", "ABCDEFGH"))
-    playGame(generateSecret(4, "ABCDEFGH"), 4, 3)
+    playGame(generateSecret(4, "ABCDEFGH"), 4, 3, "ABCDEFGH")
 }
 
 fun getGameRules(wordLength: Int, maxAttemptsCount: Int, secretExample: String, alphabet: String): String {
@@ -10,17 +10,37 @@ Two people play this game: one chooses a word (a sequence of letters), the other
 
 For example, with $secretExample as the hidden word, the BCDF guess will give 1 full match (C) and 1 partial match (B)."""
 }
+fun safeUserInput(wordLength:Int, alphabet:String) {
+    println("Please input your guess. It should be of length $wordLength, and each symbol should be from the alphabet: $alphabet.")
+    safeReadLine()
+}
+
+fun isCorrectInput(userInput:String, wordLength:Int, alphabet:String):Boolean{
+    if (userInput.length != wordLength){
+        println("The length of your guess should be <wordLength> characters! Try again!")
+        return false
+    }
+    for (char in alphabet){
+        if (!userInput.contains(char)){
+            println("All symbols in your guess should be the $alphabet alphabet characters! Try again!")
+            return false
+        }
+    }
+    return true
+}
 
 fun generateSecret(wordLength:Int, alphabet: String): String {
     return List(wordLength) {alphabet.random()}.joinToString("")
 }
 
-fun playGame(secret: String, wordLength: Int, maxAttemptsCount: Int) {
+fun playGame(secret: String, wordLength: Int, maxAttemptsCount: Int, alphabet: String) {
     var attemptsCounter = 0
     var guess:String = ""
     do {
-        println("Please input your guess. It should be of length $wordLength.")
-        guess = safeReadLine()
+        guess = safeUserInput(wordLength, guess).toString()
+        if (!isCorrectInput(guess,wordLength, alphabet)){
+            break
+        }
         attemptsCounter++
         if (isWin(isComplete(secret, guess), attemptsCounter, attemptsCounter)) {
             printRoundResults(secret, guess)
