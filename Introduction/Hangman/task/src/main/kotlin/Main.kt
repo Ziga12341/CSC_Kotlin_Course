@@ -1,13 +1,19 @@
 fun main() {
-    val word:String = words.random()
-    val secretWordUnderscored:String = (underscore+separator).repeat(word.length)
-    gameRules(maxAttemptsCount, word.length)
+    val secret:String = words.random()
+    val secretWordUnderscored:String = (underscore+separator).repeat(secret.length)
+    gameRules(maxAttemptsCount, secret.length)
     println("I guessed the word: $secretWordUnderscored")
+    var counter = 0
     do {
-        var guess:Char = safeUserInput()
-        var secretWordUnderscored = generateNewUserWord(word, guess, secretWordUnderscored)
+        if (isComplete(secret, secretWordUnderscored)){
+            println("Congratulations! You guessed it!")
+        }
+        val guess:Char = safeUserInput()
+        generateNewUserWord(secret, guess, secretWordUnderscored)
+        counter++
 
-    } while (isComplete(word, secretWordUnderscored))
+    } while (counter <= maxAttemptsCount)
+    println("Sorry, you lost! My word is $secret")
 
 }
 
