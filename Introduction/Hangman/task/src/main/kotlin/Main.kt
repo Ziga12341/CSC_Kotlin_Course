@@ -1,24 +1,18 @@
 fun main() {
-//    var currentUserWordList = "____".toMutableList()
-//    println(currentUserWordList.set(0, 'B'))
-//    println(currentUserWordList.joinToString(""))
-//    var currentUserWord: String
-    println(generateNewUserWord("BOOK", 'K', "___K"))
 }
-
-//    TODO("specify what if user guessed right")
-//        change current user word the way that you add guessed leter or more of them to currentUserWord
-//        change index in curent user word from "_" to guess
 
 fun generateNewUserWord(secret: String, guess: Char, currentUserWord: String): String {
     var newCurrentUserWord = currentUserWord
     val newCurrentUserWordList = currentUserWord.toMutableList()
+//    case if already guessed symbol
     if (guess in currentUserWord){
         return newCurrentUserWord
     }
+//    case if user guessed right
     if (guess in secret) {
         for ((index, symbol) in secret.withIndex()) {
             if (symbol == guess) {
+//                on index where user guessed right change "_" with symbol
                 newCurrentUserWordList[index] = symbol
                 newCurrentUserWord = newCurrentUserWordList.joinToString("")
             }
