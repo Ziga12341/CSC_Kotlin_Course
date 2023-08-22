@@ -1,11 +1,13 @@
 fun main() {
-    println("AAA".toCharArray())
-    println(isCorrectInput("a"))
-    println(isCorrectInput("K1"))
-    println(safeUserInput("z"))
-    separator
-    words
-    gameRules(maxAttemptsCount, wordLength)
+    val word:String = words.random()
+    val secretWordUnderscored:String = (underscore+separator).repeat(word.length)
+    gameRules(maxAttemptsCount, word.length)
+    println("I guessed the word: $secretWordUnderscored")
+    do {
+        var guess:Char = safeUserInput()
+        var secretWordUnderscored = generateNewUserWord(word, guess, secretWordUnderscored)
+
+    } while (isComplete(word, secretWordUnderscored))
 
 }
 
@@ -28,7 +30,19 @@ fun gameRules(maxAttemptsCount: Int, wordLength: Int) {
     )
 }
 
-fun safeUserInput(guess: String): Char {
+//chat GPT answer use while loop... asking user until he input something what is not null
+fun safeUserInput(): Char {
+    var guess: String?
+    println("Please input your guess.")
+    do {
+        guess = readLine()
+    } while (guess == null || !isCorrectInput(guess))
+    return guess[0].uppercaseChar()
+}
+
+//my function - do not pass teats because it is case when user input is null...
+fun safeUserInput2(): Char {
+    val guess: String = readlnOrNull().toString()
     return guess.map { it.uppercase() }.filter { isCorrectInput(guess) }.joinToString("").toCharArray()[0]
 }
 
@@ -40,6 +54,7 @@ fun isCorrectInput(guess: String): Boolean {
         return false
     }
 //    check user provide english letter in guess
+//    i could use isLetter
     if (!(guess >= "a" && guess <= "z" || guess >= "A" && guess <= "Z")) {
         println("You should input only English letters! Try again!")
         return false
@@ -71,5 +86,5 @@ fun generateNewUserWord(secret: String, guess: Char, currentUserWord: String): S
 }
 
 fun isComplete(secret: String, currentGuess: String): Boolean {
-    return secret == currentGuess
+    return secret == currentGuess.replace("_", "").replace(" ", "")
 }
