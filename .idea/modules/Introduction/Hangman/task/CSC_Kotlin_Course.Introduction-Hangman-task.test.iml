@@ -66,7 +66,9 @@
     <output-test url="file://$MODULE_DIR$/../../../../../Introduction/Hangman/task/build/classes/java/test" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../../../Introduction/Hangman/task/src/test" />
-    <content url="file://$MODULE_DIR$/../../../../../Introduction/Hangman/task/test" />
+    <content url="file://$MODULE_DIR$/../../../../../Introduction/Hangman/task/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Introduction/Hangman/task/test" isTestSource="true" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="CSC_Kotlin_Course.Introduction-Hangman-task.main" />

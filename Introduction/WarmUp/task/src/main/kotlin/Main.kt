@@ -24,7 +24,7 @@ fun playGame(secret: String, wordLength: Int, maxAttemptsCount: Int) {
         attemptsCounter++
         if (isWin(isComplete(secret, guess), attemptsCounter, attemptsCounter)) {
             printRoundResults(secret, guess)
-            println("Congratulations!   You guessed it!")
+            println("Congratulations! You guessed it!")
             break
         }
         printRoundResults(secret, guess)
