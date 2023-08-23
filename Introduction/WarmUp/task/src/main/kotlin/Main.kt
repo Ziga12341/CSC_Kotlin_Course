@@ -101,3 +101,21 @@ fun countExactMatches(secret: String, guess: String): Int {
     }
     return matches
 }
+fun isCorrectInput(userInput:String, wordLength:Int, alphabet:String):Boolean{
+    if (userInput.length != wordLength){
+        println("The length of your guess should be $wordLength characters! Try again!")
+        return false
+    }
+    for (char in userInput){
+        if (!alphabet.contains(char)){
+            println("All symbols in your guess should be the $alphabet alphabet characters! Try again!")
+            return false
+        }
+    }
+    return true
+}
+
+fun safeUserInput(wordLength: Int, alphabet: String): String {
+    println("Please input your guess. It should be of length $wordLength, and each symbol should be from the alphabet: $alphabet.")
+    return safeReadLine()
+}
