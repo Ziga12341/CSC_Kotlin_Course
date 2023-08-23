@@ -1,6 +1,6 @@
 fun main() {
 //    println("    ┈┈╱┈┈▔▔╲▂▂╱╲┈┈┈".length)
-//    applyBordersFilter(simba)
+    println( applyBordersFilter(android))
 
 }
 
@@ -33,19 +33,23 @@ fun applyBordersFilter(picture: String): String {
 //    you need to add "# " at beginning and " #" at the end of each line
 //    you need to add whitespaces where needed
 //    read line and add what needed to be add
-    val allLinesInList = picture.lines()
-    val allRelevantLines = allLinesInList
-//        .drop(1).dropLast(1)
+    val allRelevantLines = picture.lines()
 
 //    println("each line is: $allLinesInList")
 //    println("each new line is: $allRelevantLines")
     val newPictureBody = StringBuilder()
     newPictureBody.append(topBottomBorderSymbols)
     for (line in allRelevantLines) {
-//        specify how much whitespaces you need at the end and at tha beginning of each line
+//        specify how much whitespaces you need at the end and at the beginning of each line
         val whiteSpacesPerLine: String =
             separator.toString().repeat((maxLineLength - line.length) / 2)
-        newPictureBody.append(startOfEachLine + whiteSpacesPerLine + line + whiteSpacesPerLine + endOfEachLine)
+        val addBorderToPictureStart = startOfEachLine + line + whiteSpacesPerLine
+//        on the end of each line add as many separators as needed to fulfill whitespace and end of each line " #"
+//        to max line length i needed to add 2 more because i already added "# "
+        val whitespaceToAddAtTheEnd = maxLineLength + 2 - addBorderToPictureStart.length
+        val addBorderToPictureEnd = separator.toString().repeat(whitespaceToAddAtTheEnd) + endOfEachLine
+
+        newPictureBody.append(addBorderToPictureStart + addBorderToPictureEnd)
     }
     newPictureBody.append(topBottomBorderSymbols)
 //    println("new picture is: $newPictureBody")
