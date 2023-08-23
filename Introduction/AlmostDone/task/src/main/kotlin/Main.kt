@@ -1,5 +1,5 @@
 fun main() {
-    // Write your solution in this file
+    applyBordersFilter("sll\nks\ns\nllll\n")
 }
 
 fun trimPicture(picture: String): String {
@@ -15,7 +15,12 @@ fun applyFilter(trimmedPicture: String, filterName: String): String {
 }
 
 fun applyBordersFilter(picture: String): String {
-    TODO()
+//    how long is longest line
+    println(picture.lines().sortedBy { it.length }.last().length)
+
+    borderSymbol
+    newLineSymbol
+    return picture
 }
 
 fun applySquaredFilter(picture: String): String {
