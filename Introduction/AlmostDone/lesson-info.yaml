@@ -1,5 +1,4 @@
 type: framework
-custom_name: Almost done
 content:
 - Introduction
 - MultiRowStrings
@@ -10,4 +9,4 @@ content:
 - NullSafetyPartTwo
 - FinishTheGame
 is_template_based: false
-current_task: 0
+current_task: 2

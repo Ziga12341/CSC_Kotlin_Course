@@ -66,7 +66,9 @@
     <output-test url="file://$MODULE_DIR$/../../../../../Introduction/AlmostDone/task/build/classes/java/test" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../../../Introduction/AlmostDone/task/src/test" />
-    <content url="file://$MODULE_DIR$/../../../../../Introduction/AlmostDone/task/test" />
+    <content url="file://$MODULE_DIR$/../../../../../Introduction/AlmostDone/task/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Introduction/AlmostDone/task/test" isTestSource="true" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="CSC_Kotlin_Course.Introduction-AlmostDone-task.main" />
