@@ -17,7 +17,7 @@ fun applyFilter(trimmedPicture: String, filterName: String): String {
         "borders",
         "applyBordersFilter" -> applyBordersFilter(trimmedPicture)
 
-        "square",
+        "squared",
         "applySquaredFilter" -> applySquaredFilter(trimmedPicture)
 
         else -> {
@@ -69,23 +69,18 @@ fun applyBordersFilter(picture: String): String {
 }
 
 fun applySquaredFilter(picture: String): String {
-    var newPictureBodyTop = StringBuilder()
-    var newPictureBodyBottom = StringBuilder()
-    var borderWithoutLast = applyBordersFilter(picture)
-    var borderWithoutLastList = borderWithoutLast.toMutableList()
-    var borderWithoutLastListRemoved = borderWithoutLastList.removeLast()
+    val borderWithoutLast = applyBordersFilter(picture)
+    val first = StringBuilder()
+    val second = StringBuilder()
 
-    for (line in borderWithoutLastList) {
-            val mergeLine = ("$line$line")
-//            println(mergeLine)
-            newPictureBodyTop.append(line)
-            newPictureBodyBottom.append(line)
-
+    val lines = borderWithoutLast.lineSequence().toList()
+    for (i in 0 until lines.size - 1) { // Skip the last line
+        first.append(lines[i]).append(lines[i]).append(newLineSymbol)
     }
-    val result = StringBuilder()
-    println((newPictureBodyTop.toMutableList() + newPictureBodyTop.toMutableList()).joinToString(""))
-//    result.append(newPictureBodyBottom.toString())
-//    result.append(newPictureBodyBottom.toString())
+//    other.append(newLineSymbol)
+    for (line in lines.drop(1)) {
+        second.append(line).append(line).append(newLineSymbol)
+    }
 
-    return  result.toString()
+    return first.toString() + second.dropLast(1).toString()
 }
