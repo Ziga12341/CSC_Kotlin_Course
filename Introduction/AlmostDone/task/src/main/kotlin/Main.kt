@@ -10,18 +10,19 @@ fun trimPicture(picture: String): String {
     return picture.trimIndent()
 }
 
-fun applyFilter(trimmedPicture: String, filterName: String): String {
+fun applyFilter1(trimmedPicture: String, filterName: String): String {
     if (filterName == "applyBordersFilter") {
-        return applyBordersFilter(trimmedPicture)
+        return applyBordersFilter(trimPicture(trimmedPicture))
     } else if (filterName == "applySquaredFilter") {
         return applySquaredFilter(trimmedPicture)
-    } else{return "This filter not implemented yet"}
+    }
+    return "This filter not implemented yet"
 }
-fun applyFilter2(trimmedPicture: String, filterName: String): String {
+fun applyFilter(trimmedPicture: String, filterName: String): String {
     return when (filterName) {
-        "applyBordersFilter" -> applyBordersFilter(trimmedPicture)
-        "applySquaredFilter" -> applySquaredFilter(trimmedPicture)
-        else -> "This filter not implemented yet"
+        "borders", "applyBordersFilter" -> applyBordersFilter(trimmedPicture)
+        "square", "applySquaredFilter" -> applySquaredFilter(trimmedPicture)
+        else -> "This filter not implemented yet 1"
     }
 }
 
