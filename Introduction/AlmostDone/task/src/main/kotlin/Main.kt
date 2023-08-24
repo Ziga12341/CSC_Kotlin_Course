@@ -1,8 +1,9 @@
 fun main() {
+    println(applyFilter(trimPicture(android), "applySquaredFilter"))
 //    println("    ┈┈╱┈┈▔▔╲▂▂╱╲┈┈┈".length)
 //    println(applyBordersFilter(android))
-    println(android)
-    println( applyFilter(trimPicture(android), "applyBordersFilter"))
+//    println(android)
+//    println( applyFilter(trimPicture(android), "applyBordersFilter"))
 
 }
 
@@ -10,23 +11,27 @@ fun trimPicture(picture: String): String {
     return picture.trimIndent()
 }
 
-fun applyFilter1(trimmedPicture: String, filterName: String): String {
-    if (filterName == "applyBordersFilter") {
-        return applyBordersFilter(trimPicture(trimmedPicture))
-    } else if (filterName == "applySquaredFilter") {
-        return applySquaredFilter(trimmedPicture)
-    }
-    return "This filter not implemented yet"
-}
+
 fun applyFilter(trimmedPicture: String, filterName: String): String {
     return when (filterName) {
-        "borders", "applyBordersFilter" -> applyBordersFilter(trimmedPicture)
-        "square", "applySquaredFilter" -> applySquaredFilter(trimmedPicture)
-        else -> "This filter not implemented yet 1"
+        "borders",
+        "applyBordersFilter" -> applyBordersFilter(trimmedPicture)
+
+        "square",
+        "applySquaredFilter" -> applySquaredFilter(trimmedPicture)
+
+        else -> {
+            println("filterName: $filterName")
+            println("Char code: " + trimmedPicture[0].code)
+            println("Char: " + trimmedPicture[0])
+            println("trimmedPicture:\n $trimmedPicture")
+            "This filter not implemented yet"
+        }
     }
 }
 
 fun applyBordersFilter(picture: String): String {
+    // Char + Char -> String
     val startOfEachLine: String = borderSymbol.toString() + separator.toString()
     val endOfEachLine: String =
         separator.toString() + borderSymbol.toString() + newLineSymbol.toString()
@@ -64,5 +69,23 @@ fun applyBordersFilter(picture: String): String {
 }
 
 fun applySquaredFilter(picture: String): String {
-    TODO()
+    var newPictureBodyTop = StringBuilder()
+    var newPictureBodyBottom = StringBuilder()
+    var borderWithoutLast = applyBordersFilter(picture)
+    var borderWithoutLastList = borderWithoutLast.toMutableList()
+    var borderWithoutLastListRemoved = borderWithoutLastList.removeLast()
+
+    for (line in borderWithoutLastList) {
+            val mergeLine = ("$line$line")
+//            println(mergeLine)
+            newPictureBodyTop.append(line)
+            newPictureBodyBottom.append(line)
+
+    }
+    val result = StringBuilder()
+    println((newPictureBodyTop.toMutableList() + newPictureBodyTop.toMutableList()).joinToString(""))
+//    result.append(newPictureBodyBottom.toString())
+//    result.append(newPictureBodyBottom.toString())
+
+    return  result.toString()
 }
