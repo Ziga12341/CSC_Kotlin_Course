@@ -1,6 +1,8 @@
 fun main() {
 //    println("    ┈┈╱┈┈▔▔╲▂▂╱╲┈┈┈".length)
-    println( applyBordersFilter(android))
+//    println(applyBordersFilter(android))
+    println(android)
+    println( applyFilter(trimPicture(android), "applyBordersFilter"))
 
 }
 
@@ -9,6 +11,13 @@ fun trimPicture(picture: String): String {
 }
 
 fun applyFilter(trimmedPicture: String, filterName: String): String {
+    if (filterName == "applyBordersFilter") {
+        return applyBordersFilter(trimmedPicture)
+    } else if (filterName == "applySquaredFilter") {
+        return applySquaredFilter(trimmedPicture)
+    } else{return "This filter not implemented yet"}
+}
+fun applyFilter2(trimmedPicture: String, filterName: String): String {
     return when (filterName) {
         "applyBordersFilter" -> applyBordersFilter(trimmedPicture)
         "applySquaredFilter" -> applySquaredFilter(trimmedPicture)
@@ -26,19 +35,16 @@ fun applyBordersFilter(picture: String): String {
 //    this is important for top and bottom line
 //    maybe i need to do + 4 for boarder
     val topBottomBorderSymbols: String = "$borderSymbol".repeat(maxLineLength + 4) + newLineSymbol
-//    println(topBottomBorderSymbols)
-//    println("new line symbol is $newLineSymbol")
-//    println("top or bottom line is: $topBottomBorderSymbols")
 
 //    you need to add "# " at beginning and " #" at the end of each line
 //    you need to add whitespaces where needed
 //    read line and add what needed to be add
     val allRelevantLines = picture.lines()
 
-//    println("each line is: $allLinesInList")
-//    println("each new line is: $allRelevantLines")
+//    compute changed (bordered) picture line by line
     val newPictureBody = StringBuilder()
     newPictureBody.append(topBottomBorderSymbols)
+
     for (line in allRelevantLines) {
 //        specify how much whitespaces you need at the end and at the beginning of each line
         val whiteSpacesPerLine: String =
@@ -51,8 +57,8 @@ fun applyBordersFilter(picture: String): String {
 
         newPictureBody.append(addBorderToPictureStart + addBorderToPictureEnd)
     }
+//    append each line
     newPictureBody.append(topBottomBorderSymbols)
-//    println("new picture is: $newPictureBody")
     return newPictureBody.toString()
 }
 
