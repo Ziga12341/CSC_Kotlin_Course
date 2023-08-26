@@ -1,5 +1,4 @@
 type: framework
-custom_name: Last push
 content:
 - PatternsGenerator
 - Helpers
@@ -7,4 +6,4 @@ content:
 - CanvasGapsGenerator
 - FinishTheApp
 is_template_based: false
-current_task: 0
+current_task: 1
