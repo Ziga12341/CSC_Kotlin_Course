@@ -65,7 +65,7 @@ The following functions will _not be checked_, but they can help you implement t
   e.g.:
 ```text
    .+------+                 
- .' |    .'|                .' |    .'|
+ .' |    .'|                .' |    .'| 
 +---+--+'  |    ----->     +---+--+'  |
 |   |  |   |               |   |  |   |
 |  ,+--+---+               |  ,+--+---+
