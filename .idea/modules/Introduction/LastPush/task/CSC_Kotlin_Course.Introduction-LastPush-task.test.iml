@@ -65,10 +65,10 @@
   <component name="NewModuleRootManager">
     <output-test url="file://$MODULE_DIR$/../../../../../Introduction/LastPush/task/build/classes/java/test" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../../../Introduction/LastPush/task/src/test" />
     <content url="file://$MODULE_DIR$/../../../../../Introduction/LastPush/task/test">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Introduction/LastPush/task/test" isTestSource="true" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Introduction/LastPush/task/test1" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="CSC_Kotlin_Course.Introduction-LastPush-task.main" />
