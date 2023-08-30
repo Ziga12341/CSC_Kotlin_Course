@@ -1,8 +1,14 @@
+import java.lang.StringBuilder
+
 fun main() {
-//    canvasWithGapsGenerator(""" X
-/// \
-//\ /
-// X""", 5, 7)
+    println(
+        canvasWithGapsGenerator(
+            """ X
+/ \
+\ /
+ X""", 5, 7
+        )
+    )
 //    removeOddOrEvenFromHorizontallyRepeatedPattern(
 //        """ X
 /// \
@@ -13,15 +19,17 @@ fun main() {
 //    println(charNeedChange(11, 3, 5, false))
 //    println(charNeedChange(7, 3, 5, true))
 
-    println("for odds")
-    for (i in 0 until 15) {
-        println(charNeedChange(i, 3, true))
-    }
-    println("for even:")
-    for (i in 0 until 15) {
-//        println(i)
-        println(charNeedChange(i, 3, false))
-    }
+//    println("for odds")
+//    for (i in 0 until 15) {
+//        println(charNeedChange(i, 3, true))
+//    }
+//    println("for even:")
+//    for (i in 0 until 15) {
+////        println(i)
+//        println(charNeedChange(i, 3, false))
+//    }
+
+//    println( changeLine( " X  X  X  X  X ",3,true))
 
 }
 
@@ -29,13 +37,64 @@ fun canvasWithGapsGenerator(pattern: String, width: Int, height: Int): String {
 //  longest line in petter
     val patternMaxWidth = pattern.lines().maxOf { it.length }
 //  max high of pattern
-
+    val patternMaxHigh = pattern.lines().size
+    val changedLines = StringBuilder()
 //
     var gapCanvasedPattern = ""
     for (i in 1..height) {
         gapCanvasedPattern += repeatHorizontally(pattern, width, patternMaxWidth) + newLineSymbol
     }
-    return gapCanvasedPattern
+//  remove last line
+    val oneLineOfPatternInList = gapCanvasedPattern.lines().dropLast(1)
+    var counter = 0
+//    var odd: Boolean = true
+////  write function which will return if you need to change line or not
+////  this is nonsense - you need change in every line
+////  you need to have function that will tell you for particular line if you need to change particular char or not
+//
+//    for ((index, line) in oneLineOfPatternInList.withIndex()) {
+//        if (index % 4 == 0 && counter < 4) {
+//            odd = false
+//            counter += 1
+//        } else {
+//            odd = true
+//        }
+//        changedLines.append(changeLine(line, patternMaxWidth, odd) + newLineSymbol)
+//    }
+
+    return changedLines.toString()
+}
+
+//  this function needs explanation:
+//  it return list of booleans which tells if we need to change particular char in line or not
+//  it takes only one line - function do not know where it is and pattern max size... do not need to know how big is string
+//  this function is for odds only
+
+fun charNeedChangeInOdds(line: String, patternMaxWidth: Int): List<Boolean> {
+    val charByCharNeedChange = mutableListOf<Boolean>()
+    val chunkedListOfLine = line.toList().chunked(patternMaxWidth)
+    for ((index, innerList) in chunkedListOfLine.withIndex()) charByCharNeedChange +=
+        if (index % 2 == 0) {
+            (innerList.map { true })
+        } else {
+            (innerList.map { false })
+        }
+    return charByCharNeedChange
+}
+
+//  this function is for evens only
+
+
+fun charNeedChangeInEvens(wholeCanvasWithNoWhitespace: String, patternMaxWidth: Int): List<Boolean> {
+    val charByCharNeedChange = mutableListOf<Boolean>()
+    val chunkedListOfLine = wholeCanvasWithNoWhitespace.toList().chunked(patternMaxWidth)
+    for ((index, innerList) in chunkedListOfLine.withIndex()) charByCharNeedChange +=
+        if (index % 2 == 1) {
+            (innerList.map { true })
+        } else {
+            (innerList.map { false })
+        }
+    return charByCharNeedChange
 }
 
 //  Write two functions which are similar than repeatHorizontally but except also Odd/Even numbers
@@ -63,23 +122,37 @@ fun removeOddOrEvenFromHorizontallyRepeatedPattern(
     }
 }
 
+//  this function will change char that needs to be changed - if we need to change it will tell us fun charNeedChange
+fun changeLine(oneLineOfPattern: String, patternMaxWidth: Int, isOdd: Boolean): String {
+    var changedLine = ""
+    for ((index, char) in oneLineOfPattern.withIndex()) {
+        changedLine += if (charNeedChange(index, patternMaxWidth, isOdd)) {
+            separator
+        } else {
+            char
+        }
+    }
+    return changedLine
+}
+
 fun charNeedChange(
     indexOfCharInLine: Int,
     patternMaxWidth: Int,
     isOdd: Boolean
-): Boolean? {
+): Boolean {
 //    for all possible options
 //  dividedIndex is from 0 to 5 in my tests cases
     val dividedIndex = indexOfCharInLine % (patternMaxWidth * 2)
     if (isOdd) {
 //      false, false, false, true, true, true
-        if (dividedIndex + 1  > patternMaxWidth) {
+//      if divided index is bigger than max width - return true
+        if (dividedIndex + 1 > patternMaxWidth) {
             return true
         }
     } else {
 //      case for even (like second row - at a beginning just spaces) - need to remove - replace with space
 //      true, true, true, false, false, false
-        if (dividedIndex + 1 <=  patternMaxWidth ) {
+        if (dividedIndex + 1 <= patternMaxWidth) {
             return true
         }
     }
