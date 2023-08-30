@@ -34,22 +34,50 @@ fun main() {
 }
 //  need to return new string of pattern canvas with gaps
 
+//This function should call the necessary generator to return a generated picture.
+fun applyGenerator(pattern: String, generatorName: String, width: Int, height: Int): String {
+    if (generatorName == "canvas") {
+        return canvasGenerator(pattern, width, height)
+    } else if (generatorName == "canvasGaps") {
+        return canvasWithGapsGenerator(pattern, width, height)
+    }
+    return "invalid input, try again"
+}
+
+// which asks if the user wants to choose a pre-defined pattern or input a custom one. This function returns the pattern which should be used for pattern generation.
+fun getPattern(): String {
+    var output: String = ""
+    println(
+        """Do you want to use a pre-defined pattern or a custom one?
+Please input 'yes' for a pre-defined pattern or 'no' for a custom one."""
+    )
+
+    val width = safeReadLine().toIntOrNull() ?: error("Incorrect number!")
+    return output
+}
+
+fun safeReadLine() = readlnOrNull() ?: error("Your input is incorrect, sorry")
+
 fun canvasWithGapsGenerator(pattern: String, width: Int, height: Int): String {
 //  longest line in petter
     val patternMaxWidth = pattern.lines().maxOf { it.length }
 //  max high of pattern
     val patternMaxHigh = pattern.lines().size
+//  this is final var that I return on the end - collecting changed line by line and at the end drop last line
     val gapedCanvasWithPattern = StringBuilder()
+
 //  here you get repeated pattern in canvas without gaps:
     var canvasedPattern = ""
     for (i in 1..height) {
         canvasedPattern += repeatHorizontally(pattern, width, patternMaxWidth) + newLineSymbol
     }
 //  remove last line
-    val oneLineOfPatternInList = canvasedPattern.lines().dropLast(1)
-    var counter = 0
+    canvasedPattern.lines().dropLast(1)
+
+//  main functionality of this function
     val chunkedCanvas = canvasedPattern.lines().chunked(patternMaxHigh)
-    println(chunkedCanvas)
+//  special case for canvas with high 2 --> When repeated vertically, the pattern remains unchanged.
+//  append the some line two times
     if (height == 2) {
         gapedCanvasWithPattern.append(
             repeatHorizontally(
@@ -66,14 +94,17 @@ fun canvasWithGapsGenerator(pattern: String, width: Int, height: Int): String {
             ) + newLineSymbol
         )
     } else {
+//  check if we need to change some char in particular line
+
         for ((index, innerList) in chunkedCanvas.withIndex()) {
 
 //      for first line you always do not change first pattern or first line
-            if (index % 2 == 0) {
-                println("if: $index")
-                println(innerList)
+//      we start with 1 not with 0 because it is first line
+            val newIndex = index + 1
+            //      is odd is always true because first line is odd
+            if (newIndex % 2 == 1) {
                 for (line in innerList) {
-
+//              just use changeLine function
                     gapedCanvasWithPattern.append(
                         changeLine(
                             line,
@@ -83,8 +114,6 @@ fun canvasWithGapsGenerator(pattern: String, width: Int, height: Int): String {
                     )
                 }
             } else {
-                println("else: $index")
-                println(innerList)
                 for (line in innerList) {
                     gapedCanvasWithPattern.append(
                         changeLine(
@@ -97,10 +126,12 @@ fun canvasWithGapsGenerator(pattern: String, width: Int, height: Int): String {
             }
         }
     }
+//  need to drop last new lines
     val gapedCanvasWithPatterNoLastLine = gapedCanvasWithPattern.dropLast(2)
     return gapedCanvasWithPatterNoLastLine.toString()
 }
 
+//  at the end i did not use this code
 //  this function needs explanation:
 //  it return list of booleans which tells if we need to change particular char in line or not
 //  it takes only one line - function do not know where it is and pattern max size... do not need to know how big is string
@@ -118,8 +149,8 @@ fun charNeedChangeInOdds(line: String, patternMaxWidth: Int): List<Boolean> {
     return charByCharNeedChange
 }
 
+//  at the end i did not use this code
 //  this function is for evens only
-
 
 fun charNeedChangeInEvens(
     wholeCanvasWithNoWhitespace: String,
@@ -138,7 +169,6 @@ fun charNeedChangeInEvens(
 
 //  Write two functions which are similar than repeatHorizontally but except also Odd/Even numbers
 //  With that info i will remove lines which represent every even or odd position of element
-
 
 fun removeOddOrEvenFromHorizontallyRepeatedPattern(
     pattern: String,
