@@ -1,6 +1,8 @@
 import java.lang.StringBuilder
 
 fun main() {
+    println("The possible options: ${allPatterns().joinToString(", ")}")
+
     println(
         canvasWithGapsGenerator(
             """ X
@@ -9,50 +11,46 @@ fun main() {
  X""", 5, 7
         )
     )
-//    removeOddOrEvenFromHorizontallyRepeatedPattern(
-//        """ X
-/// \
-//\ /
-// X""", width = 5, 3, 1
-//    )
-//
-//    println(charNeedChange(11, 3, 5, false))
-//    println(charNeedChange(7, 3, 5, true))
 
-//    println("for odds")
-//    for (i in 0 until 15) {
-//        println(charNeedChange(i, 3, true))
-//    }
-//    println("for even:")
-//    for (i in 0 until 15) {
-////        println(i)
-//        println(charNeedChange(i, 3, false))
-//    }
-
-//    println( changeLine( " X  X  X  X  X ",3,true))
+    println(
+        applyGenerator(
+            """0""", "canvas", 1, 2
+        )
+    )
 
 }
 //  need to return new string of pattern canvas with gaps
 
 //This function should call the necessary generator to return a generated picture.
+// !!!!!!!! this function do not passes some tests with low width and height number !!!!!!!!!!!
 fun applyGenerator(pattern: String, generatorName: String, width: Int, height: Int): String {
-    if (generatorName == "canvas") {
-        return canvasGenerator(pattern, width, height)
-    } else if (generatorName == "canvasGaps") {
-        return canvasWithGapsGenerator(pattern, width, height)
+    return when (generatorName) {
+        "canvas" -> canvasGenerator(pattern, width, height)
+        "canvasGaps" -> canvasWithGapsGenerator(pattern, width, height)
+        else -> "invalid input, try again"
     }
-    return "invalid input, try again"
 }
 
 // which asks if the user wants to choose a pre-defined pattern or input a custom one. This function returns the pattern which should be used for pattern generation.
 fun getPattern(): String {
     var output: String = ""
+    var userPattern = ""
     println(
         """Do you want to use a pre-defined pattern or a custom one?
 Please input 'yes' for a pre-defined pattern or 'no' for a custom one."""
     )
+    do {
+        val answer = safeReadLine()
+        if ((answer != "yes") || (answer != "no")){
+            println("Please input 'yes' or 'no'")
+        }
+        else{userPattern = answer}
+    } while (answer == "yes" || answer == "no")
+    if (userPattern == "yes"){
+        println("The possible options: ${allPatterns().joinToString(", ")}")
+    }
 
-    val width = safeReadLine().toIntOrNull() ?: error("Incorrect number!")
+        val width = safeReadLine().toIntOrNull() ?: error("Incorrect number!")
     return output
 }
 
